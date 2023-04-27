@@ -212,7 +212,7 @@ inline zone_symbol_t *zone_lookup(
   const zone_table_t *table, const zone_string_t *string)
 {
   const zone_symbol_t key = { *string, 0 };
-  return bsearch(&key, table->symbols, table->length, sizeof(key), zone_compare);
+  return (zone_symbol_t *)bsearch(&key, table->symbols, table->length, sizeof(key), zone_compare);
 }
 
 // @private

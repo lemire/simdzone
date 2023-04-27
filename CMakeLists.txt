@@ -6,7 +6,7 @@
 cmake_minimum_required(VERSION 3.10)
 project(
   simdzone
-  LANGUAGES C
+  LANGUAGES C CXX
   VERSION 0.1.0
   DESCRIPTION "Fast and standards compliant DNS zone parser")
 
@@ -217,4 +217,10 @@ if(BUILD_DOCUMENTATION)
   set(DOXYGEN_VERBATIM_VARS DOXYGEN_ALIASES)
   find_package(Doxygen REQUIRED)
   doxygen_add_docs(doxygen include)
+endif()
+
+option(ZONE_BENCHMARKS "Build advanced benchmarks." OFF)
+
+if(ZONE_BENCHMARKS)
+  add_subdirectory(microbenchmarks)
 endif()

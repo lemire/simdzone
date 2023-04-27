@@ -1,5 +1,6 @@
 [test_requires]
 cmocka/1.1.5
+benchmark/1.6.0
 
 [generators]
 CMakeDeps
