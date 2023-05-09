@@ -5,9 +5,8 @@
 #include <fstream>
 #include <iostream>
 #include <memory>
-
+#include <climits>
 #include <benchmark/benchmark.h>
-
 extern "C" {
 #include "zone.h"
 }
@@ -98,7 +97,7 @@ static bool load_from_disk(const char *filename) {
 #endif
 
   size_t len = (size_t)llen;
-  input = (char *)malloc(len);
+  input = (char *)malloc(len + ZONE_BLOCK_SIZE);
   if (input == nullptr) {
     std::fclose(fp);
     return false;
@@ -115,14 +114,5 @@ static bool load_from_disk(const char *filename) {
   return true;
 }
 
-static void load(const char *filename) {
-  if (!load_from_disk(filename)) {
-    const char *default_content =
-        "se.                     172800  IN      NS      g.ns.se.";
-    input = (char *)malloc(strlen(default_content));
-    std::memcpy(input, default_content, strlen(default_content));
-    input_size = strlen(default_content);
-  }
-}
 
 #endif
